@@ -7,56 +7,182 @@
 // Example: 5! = 5 x 4 x 3 x 2 x 1 = 120
 // factorial(5); // 120
 var factorial = function(n) {
+  if (n < 0) {
+    return null;
+  }
+  if (n <= 1) {
+   return 1}
+  return n * factorial(n-1);
 };
 
 // 2. Compute the sum of an array of integers.
 // sum([1,2,3,4,5,6]); // 21
+var i = 0;
+var stored = 1;
+var fullArray = [];
 var sum = function(array) {
+  console.log('i is : ', i)
+ 
+ if (i === 0) {
+  fullArray = array;
+ }
+
+ if (array === undefined) {
+  return;
+ }
+
+ i++;
+ stored += sum(fullArray[i])
+ console.log(stored);
+
 };
+//sum([1,2,3,4,5,6])
 
 // 3. Sum all numbers in an array containing nested arrays.
 // arraySum([1,[2,3],[[4]],5]); // 15
+  var store = 0;
 var arraySum = function(array) {
+
+  for (var i = 0; i < array.length; i++) {
+// console.log('begin: ', array[i])
+// console.log('III: ', i)
+   if (!Array.isArray(array[i])) {
+    //store += array[i];
+    // console.log('store: ', array[i])
+    
+    //array[i].forEach(function(item){
+      store += array[i]
+    //})
+   } else {
+    //console.log('array[i]: ', array[i])
+    arraySum(array[i]);
+   }
+
+  }
+  console.log(store);
+  return store;
 };
 
+//arraySum([3,[0,[34,[7,[18]]]]])
 // 4. Check if a number is even.
 var isEven = function(n) {
-};
+ 
+var truth = true;
+var one = 0;
 
+var inner = function (n) {   
+  if (n === one) {
+    console.log('finished ', truth)
+    return truth;
+  }
+  one++;
+  truth ? truth = false : truth = true;
+  inner(n)
+ }
+ inner(n)
+};
+//isEven(0)
 // 5. Sum all integers below a given integer.
 // sumBelow(10); // 45
 // sumBelow(7); // 21
 var sumBelow = function(n) {
+
+ if (n === 0) {
+  return 0;
+ }
+ if (n > 0) {
+  return n-1 + sumBelow(n-1)
+ } else {
+  return n+1 + sumBelow(n+1)
+ }
 };
 
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
+var array = [];
 var range = function(x, y) {
+
+  x++;
+  if (x === y) {
+    console.log(array);
+    return array;
+  }
+
+  array.push(x); 
+  range(x, y);
+
 };
+//range(3,8)
 
 // 7. Compute the exponent of a number.
 // The exponent of a number says how many times the base number is used as a factor.
 // 8^2 = 8 x 8 = 64. Here, 8 is the base and 2 is the exponent.
 // exponent(4,3); // 64
 // https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
+var times = 0;
+var counter = 1;
 var exponent = function(base, exp) {
+  if (times === exp) {
+    return counter;
+  }
+  times++;
+  counter *= base;
+  exponent(base, exp);
 };
+//exponent(16, 0)
 
 // 8. Determine if a number is a power of two.
 // powerOfTwo(1); // true
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
+var two = 2;
 var powerOfTwo = function(n) {
+  if (n === 1 || n === 2 || n === two) {
+    return true;
+  } else if (two > n) {
+    return false;
+  }
+  two *= two;
+  powerOfTwo(n);
 };
-
+// powerOfTwo(256)
 // 9. Write a function that reverses a string.
 var reverse = function(string) {
+  var splitStr = string.split('');
+  var revString = [];
+var inner = function (splitStr) {
+   if (splitStr.length === 0) {
+    return revString.join('');
+   }
+  var temp = splitStr.splice(-1, 1)
+  revString.push(temp[0])
+  inner(splitStr)
+}
+inner(splitStr)
 };
-
+//reverse('reverse')
 // 10. Write a function that determines if a string is a palindrome.
 var palindrome = function(string) {
-};
+  var splitStr = string.split('');
+  var revString = [];
+  var i = 0;
+var inner = function (splitStr) {
+   if (splitStr.length === 0) {
+    console.log('end ', revString.join(''))
+    return revString.join('');
+   }
+   i--;
+  var temp = splitStr.slice(-i)
 
+  console.log('temp', temp)
+  console.log('splitStr', splitStr)
+  revString.push(temp)
+  console.log('revString', revString)
+  inner(temp)
+}
+inner(splitStr)
+};
+palindrome('salmon')
 // 11. Write a function that returns the remainder of x divided by y without using the
 // modulo (%) operator.
 // modulo(5,2) // 1
